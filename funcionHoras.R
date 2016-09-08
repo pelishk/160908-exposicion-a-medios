@@ -1,3 +1,9 @@
+#librerías necesarias---------------------------------------
+
+library(dplyr)
+library(stringr)
+
+
 
 #función del mame para hacer medias horas filtradas por lo que sea!-------------------------
 
@@ -55,9 +61,9 @@ funcionCalculaTablaMediasHoras<-function(datos,datosExtra,criterio){
     }
   }
   #datosLimpios$medio<-'tele'
-  # datosLimpios$medio[str_detect(datosLimpios$pregunta,'apps')]<-'app'
-   # datosLimpios$medio[str_detect(datosLimpios$pregunta,'radio')]<-'radio'
-   datosLimpios$medio[str_detect(datosLimpios$pregunta,'internet')]<-'internet'
+   #datosLimpios$medio[str_detect(datosLimpios$pregunta,'apps')]<-'app'
+    datosLimpios$medio[str_detect(datosLimpios$pregunta,'radio')]<-'radio'
+   #datosLimpios$medio[str_detect(datosLimpios$pregunta,'internet')]<-'internet'
    # datosLimpios$medio[str_detect(datosLimpios$pregunta,'periodico')]<-'periodico'
    # datosLimpios$medio[str_detect(datosLimpios$pregunta,'revista')]<-'revista'
   # datosLimpios$medio[str_detect(datosLimpios$pregunta,'tvi')]<-'tvi'
@@ -86,7 +92,7 @@ funcionCalculaTablaMediasHoras<-function(datos,datosExtra,criterio){
   datosLimpios<-datosLimpios %>%
     mutate(llave=paste0(horario,'_',medio,'_',hora))
   
-  #comenzamos la matriz loca--------------------------------------
+  #comenzamos la matriz loca
   datosLimpios$horario<-as.factor(datosLimpios$horario)
   parHorarios<-levels(datosLimpios$horario)
   datosLimpios$medio<-as.factor(datosLimpios$medio)
@@ -105,7 +111,7 @@ funcionCalculaTablaMediasHoras<-function(datos,datosExtra,criterio){
   }
   (nombres)
   
-  #lleno la matriz loca--------------------------------------------------------------------
+  #lleno la matriz loca
   
   
   matrizloca<-as.data.frame(t(rep(0,length(nombres))))
@@ -217,6 +223,9 @@ opciones<-c('Convencional','Smart','Celular','Tableta','Computadora')
 #tv abierta--------------------------------------------------------------------
 ###############################################################################
 
+#checar código de la función 63-70 para que sea de TV
+
+
 for(contador in 1:length(opciones)){
   eval(parse(text=paste(
     "datosExtra1<-datos %>%
@@ -252,6 +261,9 @@ for(i in 1:nrow(datosExtra1)){
 #tv paga--------------------------------------------------------------------
 ###############################################################################
 
+#checar código de la función 63-70 para que sea de TV
+
+
 for(contador in 1:length(opciones)){
   eval(parse(text=paste(
     "datosExtra1<-datos %>%
@@ -285,6 +297,9 @@ for(i in 1:nrow(datosExtra1)){
 ###############################################################################
 #tv ambas--------------------------------------------------------------------
 ###############################################################################
+
+#checar código de la función 63-70 para que sea de TV
+
 
 for(contador in 1:length(opciones)){
   eval(parse(text=paste(
@@ -320,6 +335,9 @@ for(i in 1:nrow(datosExtra1)){
 ########################################################################################################
 #radio-------------------------------------------------------------------
 ########################################################################################################
+
+#checar código de la función 63-70 para que sea de TV
+
 
 #cargo la base
 datos<-readRDS('Base_Exp_a_medios_20160628.rds')
@@ -368,6 +386,9 @@ for(contador in 1:length(opciones)){
 #periódico-------------------------------------------------------------------
 ########################################################################################################
 
+#checar código de la función 63-70 para que sea de TV
+
+
 #cargo la base
 datos<-readRDS('Base_Exp_a_medios_20160628.rds')
 #me quedo con las variables correspondientes a lo que necesito, en este caso TV
@@ -411,6 +432,9 @@ for(contador in 1:length(opciones)){
 #revista-------------------------------------------------------------------
 ########################################################################################################
 
+#checar código de la función 63-70 para que sea de TV
+
+
 #cargo la base
 datos<-readRDS('Base_Exp_a_medios_20160628.rds')
 #me quedo con las variables correspondientes a lo que necesito, en este caso TV
@@ -452,6 +476,9 @@ for(contador in 1:length(opciones)){
 ########################################################################################################
 #internet-------------------------------------------------------------------
 ########################################################################################################
+
+#checar código de la función 63-70 para que sea de TV
+
 
 #cargo la base
 datos<-readRDS('Base_Exp_a_medios_20160628.rds')
@@ -498,18 +525,11 @@ for(contador in 1:length(opciones)){
 #guardo todo el desmadrito-------------------------------------------
 #####################################################################
 
-write.csv(mhAbiertaConvencional,'mhAbiertaConvencional.csv')
-write.csv(mhAbiertaSmart,'mhAbiertaSmart.csv')
-write.csv(mhAbiertaComputadora,'mhAbiertaComputadora.csv')
-write.csv(mhAbiertaTableta,'mhAbiertaTableta.csv')
-write.csv(mhAbiertaCelular,'mhAbiertaCelular.csv')
+rm(contador,criterioDeFiltro,
+   datos,
+   datosExtra,
+   datosExtra1,datosExtra2,datosExtra3,
+   datosHoras,funcionCalculaTablaMediasHoras,i,j,
+   opciones,tipo)
 
-write.csv(mhPagaConvencional,'mhPagaConvencional.csv')
-write.csv(mhPagaSmart,'mhPagaSmart.csv')
-write.csv(mhPagaComputadora,'mhPagaComputadora.csv')
-write.csv(mhPagaTableta,'mhPagaTableta.csv')
-write.csv(mhPagaCelular,'mhPagaCelular.csv')
-
-
-
-
+save.image('mh_medioPorDispositivo.RData')
